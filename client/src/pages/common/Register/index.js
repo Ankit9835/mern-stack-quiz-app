@@ -2,9 +2,27 @@ import { Form, message } from "antd";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-
+import { createUser } from "../../../apicalls/user";
 
 function Register() {
+
+  const onFinish = async (values) => {
+    console.log('on finish values',values)
+    try {
+      const response = await createUser(values)
+      console.log('main',response)
+      if(response){
+        if(response.data.code === 11000){
+          message.error('Duplicate entry')
+        }
+        message.success(response.message);
+      } else {
+        message.error(response.message)
+      }
+    } catch (error) {
+      message.error('test')
+    }
+  }
  
 
   return (
@@ -15,7 +33,7 @@ function Register() {
             SHEYQUIZ - REGISTER<i class="ri-user-add-line"></i>
           </h1>
           <div className="divider"></div>
-          <Form layout="vertical" className="mt-2">
+          <Form layout="vertical" className="mt-2" onFinish={onFinish}>
             <Form.Item name="name" label="Name">
               <input type="text" />
             </Form.Item>
