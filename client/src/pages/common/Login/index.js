@@ -1,17 +1,22 @@
 import { Form, message } from "antd";
 import Link from "antd/es/typography/Link";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../apicalls/user";
+import { hideLoading, showLoading } from "../../../redux/loaderSlice";
 
 
 function Login() {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
  const onFinish = async (values)  => {
   console.log(values)
   try {
+    dispatch(showLoading())
     const response = await loginUser(values)
     console.log('login',response)
+    dispatch(hideLoading())
     if(response.success){
        message.success(response.message)
        localStorage.setItem('token',response.data)
