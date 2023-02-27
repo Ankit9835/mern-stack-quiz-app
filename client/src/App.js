@@ -53,7 +53,7 @@ function App() {
             path="/admin/exams/edit/:examId"
             element={
               <ProtectedRoute>
-                <EditExam />
+                <AddExams />
               </ProtectedRoute>
             }
           />

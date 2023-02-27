@@ -9,6 +9,8 @@ import { hideLoading, showLoading } from '../../../redux/loaderSlice';
 
 
 const AddExams = () => {
+  const routeParams = useParams().examId
+  console.log('route params',routeParams)
   const dispatch = useDispatch()
   const {user} = useSelector((state) => state.users)
   const [loading,setLoading] = useState(false)
@@ -28,6 +30,7 @@ const AddExams = () => {
     }
     return (
        <>
+       {routeParams ? 'Edit Exam' : 'Add Exam'}
          <Form layout="vertical" onFinish={onFinish}>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Exam Details" key="1">
